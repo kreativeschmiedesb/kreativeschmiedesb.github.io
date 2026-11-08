@@ -3,67 +3,802 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Kreativeschmiede SB</title>
-<meta name="description" content="Kreativeschmiede SB – handgemachte Geschenke und Deko aus kleiner Auflage.">
+<title>Kreativeschmiede SB – personalisierte Geschenke, handgemacht</title>
+<meta name="description" content="Personalisierte Geschenke von Mama und Tochter: Weingläser, Weihnachtskugeln und Untersetzer mit Namen, Geschenke für Hunde-, Katzen- und Pferdefreunde. Bestellung über Etsy.">
+<meta property="og:title" content="Kreativeschmiede SB – personalisierte Geschenke, handgemacht">
+<meta property="og:description" content="Geschenke mit Namen, mit Liebe handgemacht. Bestellung über unseren Etsy-Shop.">
+<meta property="og:image" content="https://kreativeschmiedesb.github.io/img/cover.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" href="img/logo.jpg">
 <style>
   :root {
-    --ground: #FAF8F5;
-    --ink: #241F1C;
-    --ink-soft: #4A423D;
-    --muted: #7A6E66;
-    --line: #E4DBD0;
-    --accent: #A85A3C;
+    --ground: #FAF8F5; --surface: #FFFFFF; --ink: #241F1C; --ink-soft: #4A423D; --muted: #7A6E66;
+    --line: #E4DBD0; --accent: #A85A3C; --accent-ink: #FFFFFF;
   }
   @media (prefers-color-scheme: dark) {
     :root {
-      --ground: #17140F;
-      --ink: #F0E9E2;
-      --ink-soft: #CFC5BC;
-      --muted: #9C9088;
-      --line: #35302A;
-      --accent: #D68F6E;
+      --ground: #17140F; --surface: #201C18; --ink: #F0E9E2; --ink-soft: #CFC5BC; --muted: #9C9088;
+      --line: #35302A; --accent: #D68F6E; --accent-ink: #17140F;
     }
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
-    margin: 0; min-height: 100vh;
-    background: var(--ground); color: var(--ink);
-    font: 16px/1.65 -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
-    display: grid; place-items: center; padding: 2rem 1.5rem;
-    -webkit-font-smoothing: antialiased;
+    margin: 0; background: var(--ground); color: var(--ink);
+    font: 16px/1.55 -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;
   }
-  main { max-width: 34rem; text-align: center; }
-  .eyebrow {
-    font-size: .78rem; letter-spacing: .2em; text-transform: uppercase;
-    color: var(--accent); font-weight: 700; margin-bottom: 1rem;
-  }
-  h1 {
-    font-size: clamp(2rem, 6vw, 2.9rem); line-height: 1.1;
-    letter-spacing: -.025em; margin: 0 0 1rem;
-  }
-  p { color: var(--ink-soft); margin: 0 0 2rem; }
-  .links { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
-  a.btn {
-    display: inline-block; padding: .7rem 1.5rem; border-radius: 6px;
-    text-decoration: none; font-weight: 600; font-size: .95rem;
-    border: 1px solid var(--line); color: var(--ink);
-  }
-  a.btn.primary { background: var(--accent); border-color: var(--accent); color: #FFFFFF; }
-  a.btn:hover { border-color: var(--accent); }
-  a.btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-  footer { margin-top: 3rem; color: var(--muted); font-size: .85rem; }
+  a { color: var(--accent); text-underline-offset: 2px; }
+  a:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .wrap { max-width: 72rem; margin: 0 auto; padding: 0 1rem; }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding-top: 1rem; padding-bottom: 1rem; }
+  .brand { display: flex; align-items: center; gap: .65rem; color: var(--ink); text-decoration: none; font-weight: 700; font-size: 1.05rem; }
+  .brand img { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--line); }
+  .btn { display: inline-block; padding: .5rem 1rem; border-radius: 6px; font-weight: 600; font-size: .92rem; text-decoration: none;
+    background: var(--accent); color: var(--accent-ink); white-space: nowrap; }
+
+  .hero { padding-top: 1.5rem; padding-bottom: 1.5rem; }
+  h1 { font-size: clamp(1.6rem, 4.5vw, 2.4rem); line-height: 1.15; letter-spacing: -.02em; margin: 0 0 .5rem; max-width: 40rem; }
+  .lead { margin: 0 0 1rem; color: var(--ink-soft); max-width: 40rem; }
+  .steps { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; margin: 0; padding: 0; list-style: none; counter-reset: s; color: var(--ink-soft); font-size: .9rem; }
+  .steps li { counter-increment: s; display: flex; align-items: center; gap: .45rem; }
+  .steps li::before { content: counter(s); display: inline-grid; place-items: center; flex: none; width: 1.4rem; height: 1.4rem;
+    border-radius: 50%; background: var(--accent); color: var(--accent-ink); font-weight: 700; font-size: .75rem; }
+
+  .filter { position: sticky; top: 0; z-index: 2; background: var(--ground); border-bottom: 1px solid var(--line); }
+  .filter .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; padding-top: .7rem; padding-bottom: .7rem; }
+  .filter input { flex: 1 1 14rem; max-width: 22rem; font: inherit; font-size: .95rem; padding: .45rem .8rem; color: var(--ink);
+    background: var(--surface); border: 1px solid var(--line); border-radius: 999px; }
+  .chips { display: flex; gap: .4rem; overflow-x: auto; margin: 0; padding: 0; list-style: none; scrollbar-width: none; flex: 1 1 100%; order: 2; }
+  .chips::-webkit-scrollbar { display: none; }
+  .chips a { display: block; white-space: nowrap; padding: .3rem .8rem; border: 1px solid var(--line); border-radius: 999px;
+    color: var(--ink); text-decoration: none; font-size: .88rem; background: var(--surface); }
+  .chips a small { color: var(--muted); margin-left: .25rem; }
+  .chips a:hover { border-color: var(--accent); }
+  .chips a[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .chips a[aria-current="true"] small { color: inherit; opacity: .8; }
+
+  main { min-height: 50vh; }
+  section { padding-top: 1.6rem; }
+  h2 { font-size: 1.2rem; letter-spacing: -.01em; margin: 0 0 .8rem; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin: 0; padding: 0; list-style: none; }
+  @media (min-width: 40rem) { .grid { grid-template-columns: repeat(3, 1fr); gap: 1.1rem; } }
+  @media (min-width: 60rem) { .grid { grid-template-columns: repeat(4, 1fr); } }
+  .card { display: flex; flex-direction: column; height: 100%; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 10px; overflow: hidden; color: inherit; text-decoration: none; transition: border-color .15s, transform .15s; }
+  .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  .card img, .noimg { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; background: var(--line); }
+  .body { display: flex; flex-direction: column; gap: .15rem; padding: .65rem .8rem .8rem; flex: 1; }
+  .name { font-size: .92rem; line-height: 1.35; hyphens: auto; overflow-wrap: anywhere;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  @media (min-width: 40rem) { .name { -webkit-line-clamp: 2; } }
+  .price { margin-top: auto; padding-top: .35rem; font-weight: 700; }
+  .price small { font-weight: 400; color: var(--muted); }
+  .ship { font-size: .76rem; color: var(--muted); }
+  .none { padding: 2rem 0; color: var(--muted); }
+
+  .about { margin-top: 3rem; padding-top: 1.6rem; border-top: 1px solid var(--line); color: var(--ink-soft); max-width: 44rem; }
+  .about h2 { color: var(--ink); }
+  footer { margin-top: 2rem; padding-top: 1.4rem; padding-bottom: 3rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
+  footer p { margin: 0 0 .6rem; }
 </style>
 </head>
 <body>
-<main>
-  <div class="eyebrow">Handgemacht in kleiner Auflage</div>
-  <h1>Kreativeschmiede SB</h1>
-  <p>Geschenke und Deko, jedes Stück von Hand gefertigt. Der Shop liegt auf Etsy.</p>
-  <div class="links">
-    <a class="btn primary" href="https://kreativeschmiedesb.etsy.com">Zum Etsy-Shop</a>
-    <a class="btn" href="./datenschutz.html">Datenschutzerklärung</a>
-  </div>
-  <footer>© 2026 Kreativeschmiede SB</footer>
+<header class="wrap top">
+  <a class="brand" href="./"><img src="img/logo.jpg" alt="" width="40" height="40">Kreativeschmiede SB</a>
+  <a class="btn" href="https://kreativeschmiedesb.etsy.com" target="_blank" rel="noopener">Etsy-Shop</a>
+</header>
+
+<div class="wrap hero">
+  <h1>Personalisierte Geschenke, mit Liebe handgemacht</h1>
+  <p class="lead">Von meiner Mutter und mir – fast alles gestalten wir mit eurem Wunschnamen.</p>
+  <ol class="steps">
+    <li>Produkt anklicken</li>
+    <li>Bei Etsy Name und Farbe wählen</li>
+    <li>Sicher über Etsy bezahlen – PayPal, Karte, Klarna</li>
+  </ol>
+</div>
+
+<nav class="filter" aria-label="Kategorien und Suche"><div class="wrap">
+  <input id="q" type="search" placeholder="Suchen, z. B. Oma, Pferd, Weihnachten …" aria-label="Produkte durchsuchen">
+  <ul class="chips">
+    <li><a href="#" data-cat="alle" aria-current="true">Alle<small>64</small></a></li>
+    <li><a href="#beliebt" data-cat="beliebt">Beliebt<small>8</small></a></li>
+    <li><a href="#weihnachtskugeln" data-cat="weihnachtskugeln">Weihnachtskugeln<small>4</small></a></li>
+    <li><a href="#weinglaeser" data-cat="weinglaeser">Weingläser &amp; Geschenksets<small>9</small></a></li>
+    <li><a href="#untersetzer" data-cat="untersetzer">Untersetzer &amp; Tischsets<small>15</small></a></li>
+    <li><a href="#tierfreunde" data-cat="tierfreunde">Für Tierfreunde<small>15</small></a></li>
+    <li><a href="#taschen-shirts" data-cat="taschen-shirts">Taschen &amp; Shirts<small>4</small></a></li>
+    <li><a href="#deko" data-cat="deko">Laternen &amp; Deko<small>3</small></a></li>
+    <li><a href="#hochzeit" data-cat="hochzeit">Hochzeit &amp; Feste<small>6</small></a></li>
+    <li><a href="#baby" data-cat="baby">Baby &amp; Kinder<small>4</small></a></li>
+    <li><a href="#bastel-sets" data-cat="bastel-sets">Bastel-Sets<small>4</small></a></li>
+  </ul>
+</div></nav>
+
+<main class="wrap">
+  <section id="beliebt">
+    <h2>Beliebt</h2>
+    <ul class="grid">
+      <li data-q="geschenkset &quot;oma, opa&quot;, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1805194470" target="_blank" rel="noopener" title="Geschenkset &quot;Oma, Opa&quot;, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee">
+        <img src="img/shop/1805194470.jpg" alt="Geschenkset &quot;Oma, Opa&quot; – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Geschenkset &quot;Oma, Opa&quot; – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price"><small>ab</small> 20,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="tante onkel geschenkset, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee familie, tante onkel"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1824277121" target="_blank" rel="noopener" title="Tante Onkel Geschenkset, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee Familie, Tante Onkel">
+        <img src="img/shop/1824277121.jpg" alt="Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price"><small>ab</small> 26,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="großeltern geschenkidee &quot;beste oma/bester opa&quot;, weihnachtskugel mit halterung, personalisierte weihnachtsdeko, weihnachtsgeschenk oma opa"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1811820214" target="_blank" rel="noopener" title="Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;, Weihnachtskugel mit Halterung, Personalisierte Weihnachtsdeko, Weihnachtsgeschenk Oma Opa">
+        <img src="img/shop/1811820214.jpg" alt="Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;</span>
+          <span class="price"><small>ab</small> 16,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="platzset weihnachten aus filz mit namen, tischset mit untersetzer und besteckhalter, tischdeko gold silber"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1811501033" target="_blank" rel="noopener" title="Platzset Weihnachten aus Filz mit Namen, Tischset mit Untersetzer und Besteckhalter, Tischdeko Gold Silber">
+        <img src="img/shop/1811501033.jpg" alt="Platzset Weihnachten aus Filz mit Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Platzset Weihnachten aus Filz mit Namen</span>
+          <span class="price"><small>ab</small> 12,48 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="laterne mit wunschtext, windlicht für innen und außen, geschenk für freunde, advent, hochzeit"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4446894500" target="_blank" rel="noopener" title="Laterne mit Wunschtext, Windlicht für innen und außen, Geschenk für Freunde, Advent, Hochzeit">
+        <img src="img/shop/4446894500.jpg" alt="Laterne mit Wunschtext – Windlicht für innen und außen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Laterne mit Wunschtext – Windlicht für innen und außen</span>
+          <span class="price">29,55 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="jutebeutel personalisiert für sänger, individuell bedruckte stofftasche, geschenkidee sänger und sängerinnen, tragetasche musik, notentasche"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1806286274" target="_blank" rel="noopener" title="Jutebeutel personalisiert für Sänger, individuell bedruckte Stofftasche, Geschenkidee Sänger und Sängerinnen, Tragetasche Musik, Notentasche">
+        <img src="img/shop/1806286274.jpg" alt="Jutebeutel personalisiert für Sänger" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Jutebeutel personalisiert für Sänger</span>
+          <span class="price"><small>ab</small> 11,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="personalisierte platzkarten aus acryl gold/silber, sechseck platzkarten, tischkarten, namensschilder, hochzeit geburtstag jga, gastgeschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1766194076" target="_blank" rel="noopener" title="Personalisierte Platzkarten aus Acryl Gold/Silber, Sechseck Platzkarten, Tischkarten, Namensschilder, Hochzeit Geburtstag JGA, Gastgeschenk">
+        <img src="img/shop/1766194076.jpg" alt="Personalisierte Platzkarten aus Acryl Gold/Silber" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Personalisierte Platzkarten aus Acryl Gold/Silber</span>
+          <span class="price"><small>ab</small> 1,90 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="bastelset pferdemädchen, basteln für mädchen und jungs an kindergeburtstagen, basteln mit kindern, bastelsets einfach, geschenk für mädchen"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1859783239" target="_blank" rel="noopener" title="Bastelset Pferdemädchen, Basteln für Mädchen und Jungs an Kindergeburtstagen, Basteln mit Kindern, Bastelsets einfach, Geschenk für Mädchen">
+        <img src="img/shop/1859783239.jpg" alt="Bastelset Pferdemädchen – Basteln für Mädchen und Jungs an Kindergeburtstagen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bastelset Pferdemädchen – Basteln für Mädchen und Jungs an Kindergeburtstagen</span>
+          <span class="price">11,99 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="weihnachtskugeln">
+    <h2>Weihnachtskugeln</h2>
+    <ul class="grid">
+      <li data-q="großeltern geschenkidee &quot;beste oma/bester opa&quot;, weihnachtskugel mit halterung, personalisierte weihnachtsdeko, weihnachtsgeschenk oma opa"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1811820214" target="_blank" rel="noopener" title="Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;, Weihnachtskugel mit Halterung, Personalisierte Weihnachtsdeko, Weihnachtsgeschenk Oma Opa">
+        <img src="img/shop/1811820214.jpg" alt="Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Großeltern Geschenkidee &quot;Beste Oma/Bester Opa&quot;</span>
+          <span class="price"><small>ab</small> 16,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtskugeln personalisiert, christbaumkugeln mit namen, weihnachtsbaumkugeln, geschenkidee für familie, weihnachtsdeko, adventskalender"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1795115396" target="_blank" rel="noopener" title="Weihnachtskugeln personalisiert, Christbaumkugeln mit Namen, Weihnachtsbaumkugeln, Geschenkidee für Familie, Weihnachtsdeko, Adventskalender">
+        <img src="img/shop/1795115396.jpg" alt="Weihnachtskugeln personalisiert" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtskugeln personalisiert</span>
+          <span class="price"><small>ab</small> 6,00 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtskugeln für oma und opa, christbaumkugeln &quot;beste oma&quot; oder &quot;bester opa&quot;, weihnachtsbaumkugeln, geschenkidee für großeltern"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1805679842" target="_blank" rel="noopener" title="Weihnachtskugeln für Oma und Opa, Christbaumkugeln &quot;Beste Oma&quot; oder &quot;Bester Opa&quot;, Weihnachtsbaumkugeln, Geschenkidee für Großeltern">
+        <img src="img/shop/1805679842.jpg" alt="Weihnachtskugeln für Oma und Opa" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtskugeln für Oma und Opa</span>
+          <span class="price"><small>ab</small> 6,00 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtskugeln personalisiert, christbaumanhänger mit namen, adventskalender idee, geschenkidee familie, weihnachtsdeko, geschenkanhänger"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1799224352" target="_blank" rel="noopener" title="Weihnachtskugeln personalisiert, Christbaumanhänger mit Namen, Adventskalender Idee, Geschenkidee Familie, Weihnachtsdeko, Geschenkanhänger">
+        <img src="img/shop/1799224352.jpg" alt="Weihnachtskugeln personalisiert" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtskugeln personalisiert</span>
+          <span class="price"><small>ab</small> 3,30 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="weinglaeser">
+    <h2>Weingläser &amp; Geschenksets</h2>
+    <ul class="grid">
+      <li data-q="geschenkset &quot;oma, opa&quot;, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1805194470" target="_blank" rel="noopener" title="Geschenkset &quot;Oma, Opa&quot;, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee">
+        <img src="img/shop/1805194470.jpg" alt="Geschenkset &quot;Oma, Opa&quot; – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Geschenkset &quot;Oma, Opa&quot; – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price"><small>ab</small> 20,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="tante onkel geschenkset, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee familie, tante onkel"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1824277121" target="_blank" rel="noopener" title="Tante Onkel Geschenkset, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee Familie, Tante Onkel">
+        <img src="img/shop/1824277121.jpg" alt="Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price"><small>ab</small> 26,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="geschenkset 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee für weinliebhaber/paare, weißweingläser"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1780762918" target="_blank" rel="noopener" title="Geschenkset 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee für Weinliebhaber/Paare, Weißweingläser">
+        <img src="img/shop/1780762918.jpg" alt="Geschenkset 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Geschenkset 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price">42,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="2er set weingläser personalisiert mit namen + geschenkbox, geschenkidee für weinliebhaber/paare, weißweingläser bedruckt, hochzeitsgeschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1768137386" target="_blank" rel="noopener" title="2er Set Weingläser personalisiert mit Namen + Geschenkbox, Geschenkidee für Weinliebhaber/Paare, Weißweingläser bedruckt, Hochzeitsgeschenk">
+        <img src="img/shop/1768137386.jpg" alt="2er Set Weingläser personalisiert mit Namen + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">2er Set Weingläser personalisiert mit Namen + Geschenkbox</span>
+          <span class="price">32,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="tante onkel geschenkset, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee familie, tante onkel"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4410247929" target="_blank" rel="noopener" title="Tante Onkel Geschenkset, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee Familie, Tante Onkel">
+        <img src="img/shop/4410247929.jpg" alt="Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Tante Onkel Geschenkset – 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox</span>
+          <span class="price"><small>ab</small> 26,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="geschenkset &quot;oma, opa&quot;, roségold, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4410234154" target="_blank" rel="noopener" title="Geschenkset &quot;Oma, Opa&quot;, Roségold, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox">
+        <img src="img/shop/4410234154.jpg" alt="Geschenkset &quot;Oma, Opa&quot; – Roségold" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Geschenkset &quot;Oma, Opa&quot; – Roségold</span>
+          <span class="price"><small>ab</small> 20,90 €</span>
+          <span class="ship">zzgl. 5,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="bedruckte weingläser personalisiert mit namen in gold oder silber - geschenkidee für weinliebhaber/paare/partner"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1768670520" target="_blank" rel="noopener" title="Bedruckte Weingläser personalisiert mit Namen in Gold oder Silber - Geschenkidee für Weinliebhaber/Paare/Partner">
+        <img src="img/shop/1768670520.jpg" alt="Bedruckte Weingläser personalisiert mit Namen in Gold oder Silber - Geschenkidee für Weinliebhaber/Paare/Partner" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bedruckte Weingläser personalisiert mit Namen in Gold oder Silber - Geschenkidee für Weinliebhaber/Paare/Partner</span>
+          <span class="price">15,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="eltern geschenkset &quot;mama, papa&quot;, 2er set weingläser personalisiert mit namen und untersetzern + geschenkbox, geschenkidee eltern, mutter"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1830395043" target="_blank" rel="noopener" title="Eltern Geschenkset &quot;Mama, Papa&quot;, 2er Set Weingläser personalisiert mit Namen und Untersetzern + Geschenkbox, Geschenkidee Eltern, Mutter">
+        <img src="img/shop/1830395043.jpg" alt="Eltern Geschenkset &quot;Mama, Papa&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Eltern Geschenkset &quot;Mama, Papa&quot;</span>
+          <span class="price"><small>ab</small> 28,90 €</span>
+          <span class="ship">zzgl. 5,69 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weinglas set beste mama mit untersetzer und geschenkbox, weihnachtsgeschenk für mama und mutter"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1857151922" target="_blank" rel="noopener" title="Weinglas Set Beste Mama mit Untersetzer und Geschenkbox, Weihnachtsgeschenk für Mama und Mutter">
+        <img src="img/shop/1857151922.jpg" alt="Weinglas Set Beste Mama mit Untersetzer und Geschenkbox" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weinglas Set Beste Mama mit Untersetzer und Geschenkbox</span>
+          <span class="price">24,50 €</span>
+          <span class="ship">zzgl. 5,69 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="untersetzer">
+    <h2>Untersetzer &amp; Tischsets</h2>
+    <ul class="grid">
+      <li data-q="platzset weihnachten aus filz mit namen, tischset mit untersetzer und besteckhalter, tischdeko gold silber"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1811501033" target="_blank" rel="noopener" title="Platzset Weihnachten aus Filz mit Namen, Tischset mit Untersetzer und Besteckhalter, Tischdeko Gold Silber">
+        <img src="img/shop/1811501033.jpg" alt="Platzset Weihnachten aus Filz mit Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Platzset Weihnachten aus Filz mit Namen</span>
+          <span class="price"><small>ab</small> 12,48 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtliche filz-untersetzer personalisiert silber/gold, mit name, geschenkidee weihnachten, adventskalender inhalt, füllung, tischdeko"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1813846161" target="_blank" rel="noopener" title="Weihnachtliche Filz-Untersetzer personalisiert silber/gold, mit Name, Geschenkidee Weihnachten, Adventskalender Inhalt, Füllung, Tischdeko">
+        <img src="img/shop/1813846161.jpg" alt="Weihnachtliche Filz-Untersetzer personalisiert silber/gold" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtliche Filz-Untersetzer personalisiert silber/gold</span>
+          <span class="price"><small>ab</small> 3,50 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="filz-untersetzer mit namen, personalisierter glasuntersetzer als gastgeschenk, wichtelgeschenk und adventskalender füllung"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1761396108" target="_blank" rel="noopener" title="Filz-Untersetzer mit Namen, personalisierter Glasuntersetzer als Gastgeschenk, Wichtelgeschenk und Adventskalender Füllung">
+        <img src="img/shop/1761396108.jpg" alt="Filz-Untersetzer mit Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Filz-Untersetzer mit Namen</span>
+          <span class="price"><small>ab</small> 2,25 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="untersetzer oma opa personalisiert, 2er set aus filz mit namen, weihnachtsgeschenk für großeltern"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1820328335" target="_blank" rel="noopener" title="Untersetzer Oma Opa personalisiert, 2er Set aus Filz mit Namen, Weihnachtsgeschenk für Großeltern">
+        <img src="img/shop/1820328335.jpg" alt="Untersetzer Oma Opa personalisiert" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Untersetzer Oma Opa personalisiert</span>
+          <span class="price"><small>ab</small> 4,00 €</span>
+          <span class="ship">zzgl. 1,55 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="untersetzer &quot;glühwein&quot; personalisiert, weihnachtliche getränkeuntersetzer für glühwein und als idee für adventskalender"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1807475712" target="_blank" rel="noopener" title="Untersetzer &quot;Glühwein&quot; personalisiert, Weihnachtliche Getränkeuntersetzer für Glühwein und als Idee für Adventskalender">
+        <img src="img/shop/1807475712.jpg" alt="Untersetzer &quot;Glühwein&quot; personalisiert" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Untersetzer &quot;Glühwein&quot; personalisiert</span>
+          <span class="price">4,00 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="platzsets personalisiert aus filz, festliche tischsets als tischdeko für feiern, set aus untersetzer, unterlage, besteckhalter, mit namen"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1806263582" target="_blank" rel="noopener" title="Platzsets personalisiert aus Filz, festliche Tischsets als Tischdeko für Feiern, Set aus Untersetzer, Unterlage, Besteckhalter, mit Namen">
+        <img src="img/shop/1806263582.jpg" alt="Platzsets personalisiert aus Filz" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Platzsets personalisiert aus Filz</span>
+          <span class="price"><small>ab</small> 12,48 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="lillet untersetzer für junggesellenabschied, geschenkidee frauen - personalisierte untersetzer mit namen"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4461828916" target="_blank" rel="noopener" title="Lillet Untersetzer für Junggesellenabschied, Geschenkidee Frauen - personalisierte Untersetzer mit Namen">
+        <img src="img/shop/4461828916.jpg" alt="Lillet Untersetzer für Junggesellenabschied" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Lillet Untersetzer für Junggesellenabschied</span>
+          <span class="price"><small>ab</small> 4,00 €</span>
+          <span class="ship">zzgl. 2,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="prosecco untersetzer, untersetzer junggesellenabschied, geschenkidee frauen, personalisierte untersetzer mit namen sekt, filz-untersetzer"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1877462455" target="_blank" rel="noopener" title="Prosecco Untersetzer, Untersetzer Junggesellenabschied, Geschenkidee Frauen, personalisierte Untersetzer mit Namen Sekt, Filz-Untersetzer">
+        <img src="img/shop/1877462455.jpg" alt="Prosecco Untersetzer – Untersetzer Junggesellenabschied" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Prosecco Untersetzer – Untersetzer Junggesellenabschied</span>
+          <span class="price"><small>ab</small> 4,00 €</span>
+          <span class="ship">zzgl. 2,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtliche untersetzer tannenbaum aus filz, personalisiert mit namen und initial, tischdeko und platzkarte"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4587806644" target="_blank" rel="noopener" title="Weihnachtliche Untersetzer Tannenbaum aus Filz, personalisiert mit Namen und Initial, Tischdeko und Platzkarte">
+        <img src="img/shop/4587806644.jpg" alt="Weihnachtliche Untersetzer Tannenbaum aus Filz" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtliche Untersetzer Tannenbaum aus Filz</span>
+          <span class="price"><small>ab</small> 3,50 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="untersetzer beste mama aus filz, kleines geschenk für mama zu weihnachten oder geburtstag"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1871352485" target="_blank" rel="noopener" title="Untersetzer Beste Mama aus Filz, kleines Geschenk für Mama zu Weihnachten oder Geburtstag">
+        <img src="img/shop/1871352485.jpg" alt="Untersetzer Beste Mama aus Filz" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Untersetzer Beste Mama aus Filz</span>
+          <span class="price">4,00 €</span>
+          <span class="ship">zzgl. 1,00 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="untersetzer mama papa personalisiert, 2er set aus filz mit namen, weihnachtsgeschenk für eltern"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1877886183" target="_blank" rel="noopener" title="Untersetzer Mama Papa personalisiert, 2er Set aus Filz mit Namen, Weihnachtsgeschenk für Eltern">
+        <img src="img/shop/1877886183.jpg" alt="Untersetzer Mama Papa personalisiert" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Untersetzer Mama Papa personalisiert</span>
+          <span class="price">9,90 €</span>
+          <span class="ship">zzgl. 2,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="glühwein untersetzer aus filz mit lustigen sprüchen, optional mit namen, wichtelgeschenk und adventskalender füllung"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4392106182" target="_blank" rel="noopener" title="Glühwein Untersetzer aus Filz mit lustigen Sprüchen, optional mit Namen, Wichtelgeschenk und Adventskalender Füllung">
+        <img src="img/shop/4392106182.jpg" alt="Glühwein Untersetzer aus Filz mit lustigen Sprüchen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Glühwein Untersetzer aus Filz mit lustigen Sprüchen</span>
+          <span class="price">4,00 €</span>
+          <span class="ship">zzgl. 1,49 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtliche untersetzer tannenbaum aus filz, beste oma bester opa, weihnachtsgeschenk für großeltern"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4587800305" target="_blank" rel="noopener" title="Weihnachtliche Untersetzer Tannenbaum aus Filz, Beste Oma Bester Opa, Weihnachtsgeschenk für Großeltern">
+        <img src="img/shop/4587800305.jpg" alt="Weihnachtliche Untersetzer Tannenbaum aus Filz" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtliche Untersetzer Tannenbaum aus Filz</span>
+          <span class="price"><small>ab</small> 3,50 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="glühwein untersetzer geschenkset, 4er set filz untersetzer mit lustigen sprüchen, wichtelgeschenk weihnachten, adventskalender"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4587652651" target="_blank" rel="noopener" title="Glühwein Untersetzer Geschenkset, 4er Set Filz Untersetzer mit lustigen Sprüchen, Wichtelgeschenk Weihnachten, Adventskalender">
+        <img src="img/shop/4587652651.jpg" alt="Glühwein Untersetzer Geschenkset" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Glühwein Untersetzer Geschenkset</span>
+          <span class="price">13,99 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="geschenkset weihnachten mit filz-untersetzer tannenbaum, duft-teelicht und streichhölzern, personalisiert, oma opa, wichtelgeschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4604172620" target="_blank" rel="noopener" title="Geschenkset Weihnachten mit Filz-Untersetzer Tannenbaum, Duft-Teelicht und Streichhölzern, personalisiert, Oma Opa, Wichtelgeschenk">
+        <img src="img/shop/4604172620.jpg" alt="Geschenkset Weihnachten mit Filz-Untersetzer Tannenbaum" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Geschenkset Weihnachten mit Filz-Untersetzer Tannenbaum</span>
+          <span class="price">9,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="tierfreunde">
+    <h2>Für Tierfreunde</h2>
+    <ul class="grid">
+      <li data-q="müslischüssel pferd personalisiert mit name, müslischale, futterschüssel, individuell, namensdruck, stallzubehör, geschenk für reiter"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1780811809" target="_blank" rel="noopener" title="Müslischüssel Pferd personalisiert mit Name, Müslischale, Futterschüssel, individuell, Namensdruck, Stallzubehör, Geschenk für Reiter">
+        <img src="img/shop/1780811809.jpg" alt="Müslischüssel Pferd personalisiert mit Name" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Müslischüssel Pferd personalisiert mit Name</span>
+          <span class="price">12,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="personalisierte hundematte/futterunterlage für hunde mit namensdruck, napfunterlage, personalisiertes hundezubehör, geschenk hundebesitzer"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1792856987" target="_blank" rel="noopener" title="Personalisierte Hundematte/Futterunterlage für Hunde mit Namensdruck, Napfunterlage, Personalisiertes Hundezubehör, Geschenk Hundebesitzer">
+        <img src="img/shop/1792856987.jpg" alt="Personalisierte Hundematte/Futterunterlage für Hunde mit Namensdruck" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Personalisierte Hundematte/Futterunterlage für Hunde mit Namensdruck</span>
+          <span class="price">17,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="jutebeutel katzenmama &quot;cat mom&quot;, bedruckte stofftasche, geschenkidee für katzenliebhaber und katzenbesitzer, stofftasche natur als geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1783556380" target="_blank" rel="noopener" title="Jutebeutel Katzenmama &quot;Cat mom&quot;, bedruckte Stofftasche, Geschenkidee für Katzenliebhaber und Katzenbesitzer, Stofftasche Natur als Geschenk">
+        <img src="img/shop/1783556380.jpg" alt="Jutebeutel Katzenmama &quot;Cat mom&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Jutebeutel Katzenmama &quot;Cat mom&quot;</span>
+          <span class="price">10,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtskugel mit pfote oder hufeisen und namen, christbaumkugel für hund, katze, pferd"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1813806145" target="_blank" rel="noopener" title="Weihnachtskugel mit Pfote oder Hufeisen und Namen, Christbaumkugel für Hund, Katze, Pferd">
+        <img src="img/shop/1813806145.jpg" alt="Weihnachtskugel mit Pfote oder Hufeisen und Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtskugel mit Pfote oder Hufeisen und Namen</span>
+          <span class="price"><small>ab</small> 7,00 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="jutebeutel hundemama &quot;dog mom&quot;, bedruckte stofftasche, geschenkidee für hundeliebhaber und hundebesitzer, stofftasche natur als geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1783556254" target="_blank" rel="noopener" title="Jutebeutel Hundemama &quot;Dog mom&quot;, bedruckte Stofftasche, Geschenkidee für Hundeliebhaber und Hundebesitzer, Stofftasche Natur als Geschenk">
+        <img src="img/shop/1783556254.jpg" alt="Jutebeutel Hundemama &quot;Dog mom&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Jutebeutel Hundemama &quot;Dog mom&quot;</span>
+          <span class="price">10,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="hundenapf personalisiert mit namen, edelstahl futternapf für hund und katze, rutschfest, weiß oder schwarz"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1809324265" target="_blank" rel="noopener" title="Hundenapf personalisiert mit Namen, Edelstahl Futternapf für Hund und Katze, rutschfest, Weiß oder Schwarz">
+        <img src="img/shop/1809324265.jpg" alt="Hundenapf personalisiert mit Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Hundenapf personalisiert mit Namen</span>
+          <span class="price">14,90 €</span>
+          <span class="ship">zzgl. 3,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="hundedecke personalisiert mit namensdruck, weiche decke fürs hundekörbchen, geschenk für hundebesitzer"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1780789598" target="_blank" rel="noopener" title="Hundedecke personalisiert mit Namensdruck, weiche Decke fürs Hundekörbchen, Geschenk für Hundebesitzer">
+        <img src="img/shop/1780789598.jpg" alt="Hundedecke personalisiert mit Namensdruck" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Hundedecke personalisiert mit Namensdruck</span>
+          <span class="price">16,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="personalisierter jutebeutel pferdemama &quot;horse mom&quot;, stofftasche mit name, geschenkidee für pferdebesitzer, stofftasche natur als geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1783600628" target="_blank" rel="noopener" title="Personalisierter Jutebeutel Pferdemama &quot;Horse mom&quot;, Stofftasche mit Name, Geschenkidee für Pferdebesitzer, Stofftasche Natur als Geschenk">
+        <img src="img/shop/1783600628.jpg" alt="Personalisierter Jutebeutel Pferdemama &quot;Horse mom&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Personalisierter Jutebeutel Pferdemama &quot;Horse mom&quot;</span>
+          <span class="price">11,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="dog mom t-shirt | hundemama shirt | geschenk für hundebesitzer | hunde t-shirt damen | dog mom geschenk | hundebesitzer shirt"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4556002030" target="_blank" rel="noopener" title="Dog Mom T-Shirt | Hundemama Shirt | Geschenk für Hundebesitzer | Hunde T-Shirt Damen | Dog Mom Geschenk | Hundebesitzer Shirt">
+        <img src="img/shop/4556002030.jpg" alt="Dog Mom T-Shirt – Hundemama Shirt" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Dog Mom T-Shirt – Hundemama Shirt</span>
+          <span class="price"><small>ab</small> 17,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="filztasche hundemama &quot;dog mom&quot;, bedruckte filztasche, geschenkidee für hundeliebhaber und hundebesitzer, tasche aus filz als geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4567193879" target="_blank" rel="noopener" title="Filztasche Hundemama &quot;Dog mom&quot;, bedruckte Filztasche, Geschenkidee für Hundeliebhaber und Hundebesitzer, Tasche aus Filz als Geschenk">
+        <img src="img/shop/4567193879.jpg" alt="Filztasche Hundemama &quot;Dog mom&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Filztasche Hundemama &quot;Dog mom&quot;</span>
+          <span class="price"><small>ab</small> 18,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="filztasche katzenmama &quot;cat mom&quot;, bedruckte filztasche, geschenkidee für katzenliebhaber und katzenbesitzer, tasche aus filz als geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4570622263" target="_blank" rel="noopener" title="Filztasche Katzenmama &quot;Cat mom&quot;, bedruckte Filztasche, Geschenkidee für Katzenliebhaber und Katzenbesitzer, Tasche aus Filz als Geschenk">
+        <img src="img/shop/4570622263.jpg" alt="Filztasche Katzenmama &quot;Cat mom&quot;" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Filztasche Katzenmama &quot;Cat mom&quot;</span>
+          <span class="price"><small>ab</small> 18,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weißes dog mom t-shirt | hundemama shirt | geschenk für hundebesitzer | hunde t-shirt damen | dog mom geschenk | hundebesitzer shirt weiß"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4555992483" target="_blank" rel="noopener" title="Weißes Dog Mom T-Shirt | Hundemama Shirt | Geschenk für Hundebesitzer | Hunde T-Shirt Damen | Dog Mom Geschenk | Hundebesitzer Shirt Weiß">
+        <img src="img/shop/4555992483.jpg" alt="Weißes Dog Mom T-Shirt – Hundemama Shirt" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weißes Dog Mom T-Shirt – Hundemama Shirt</span>
+          <span class="price"><small>ab</small> 17,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="dog dad t-shirt | hundepapa shirt | geschenk für hundebesitzer | hunde t-shirt herren | dog dad geschenk | hundebesitzer shirt"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4556500591" target="_blank" rel="noopener" title="Dog Dad T-Shirt | Hundepapa Shirt | Geschenk für Hundebesitzer | Hunde T-Shirt Herren | Dog Dad Geschenk | Hundebesitzer Shirt">
+        <img src="img/shop/4556500591.jpg" alt="Dog Dad T-Shirt – Hundepapa Shirt" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Dog Dad T-Shirt – Hundepapa Shirt</span>
+          <span class="price"><small>ab</small> 18,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="dog dad t-shirt | hundepapa shirt | geschenk für hundebesitzer | hunde t-shirt herren | dog dad geschenk | hundebesitzer shirt"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4559996028" target="_blank" rel="noopener" title="Dog Dad T-Shirt | Hundepapa Shirt | Geschenk für Hundebesitzer | Hunde T-Shirt Herren | Dog Dad Geschenk | Hundebesitzer Shirt">
+        <img src="img/shop/4559996028.jpg" alt="Dog Dad T-Shirt – Hundepapa Shirt" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Dog Dad T-Shirt – Hundepapa Shirt</span>
+          <span class="price"><small>ab</small> 18,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weißes cat mom t-shirt | katzenmama shirt | geschenk für katzenbesitzer | katze t-shirt damen | cat mom geschenk | katzenbesitzer shirt weiß"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4571935679" target="_blank" rel="noopener" title="Weißes Cat Mom T-Shirt | Katzenmama Shirt | Geschenk für Katzenbesitzer | Katze T-Shirt Damen | Cat Mom Geschenk | Katzenbesitzer Shirt Weiß">
+        <img src="img/shop/4571935679.jpg" alt="Weißes Cat Mom T-Shirt – Katzenmama Shirt" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weißes Cat Mom T-Shirt – Katzenmama Shirt</span>
+          <span class="price"><small>ab</small> 17,90 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="taschen-shirts">
+    <h2>Taschen &amp; Shirts</h2>
+    <ul class="grid">
+      <li data-q="jutebeutel personalisiert für sänger, individuell bedruckte stofftasche, geschenkidee sänger und sängerinnen, tragetasche musik, notentasche"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1806286274" target="_blank" rel="noopener" title="Jutebeutel personalisiert für Sänger, individuell bedruckte Stofftasche, Geschenkidee Sänger und Sängerinnen, Tragetasche Musik, Notentasche">
+        <img src="img/shop/1806286274.jpg" alt="Jutebeutel personalisiert für Sänger" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Jutebeutel personalisiert für Sänger</span>
+          <span class="price"><small>ab</small> 11,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="jutebeutel personalisiert mit name und buchstabe, bedruckte stofftasche natur, geschenk für freundin oder mama"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1780873312" target="_blank" rel="noopener" title="Jutebeutel personalisiert mit Name und Buchstabe, bedruckte Stofftasche Natur, Geschenk für Freundin oder Mama">
+        <img src="img/shop/1780873312.jpg" alt="Jutebeutel personalisiert mit Name und Buchstabe" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Jutebeutel personalisiert mit Name und Buchstabe</span>
+          <span class="price">11,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="kosmetiktasche mädelskram aus filz, schminktasche als geschenk für freundin, jga und wichteln"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4587783062" target="_blank" rel="noopener" title="Kosmetiktasche Mädelskram aus Filz, Schminktasche als Geschenk für Freundin, JGA und Wichteln">
+        <img src="img/shop/4587783062.jpg" alt="Kosmetiktasche Mädelskram aus Filz" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Kosmetiktasche Mädelskram aus Filz</span>
+          <span class="price"><small>ab</small> 10,90 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="kosmetiktasche personalisiert mit namen und buchstabe, filz schminktasche, geschenk für frauen, jga und kinder"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4587777029" target="_blank" rel="noopener" title="Kosmetiktasche personalisiert mit Namen und Buchstabe, Filz Schminktasche, Geschenk für Frauen, JGA und Kinder">
+        <img src="img/shop/4587777029.jpg" alt="Kosmetiktasche personalisiert mit Namen und Buchstabe" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Kosmetiktasche personalisiert mit Namen und Buchstabe</span>
+          <span class="price"><small>ab</small> 10,90 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="deko">
+    <h2>Laternen &amp; Deko</h2>
+    <ul class="grid">
+      <li data-q="laterne mit wunschtext, windlicht für innen und außen, geschenk für freunde, advent, hochzeit"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4446894500" target="_blank" rel="noopener" title="Laterne mit Wunschtext, Windlicht für innen und außen, Geschenk für Freunde, Advent, Hochzeit">
+        <img src="img/shop/4446894500.jpg" alt="Laterne mit Wunschtext – Windlicht für innen und außen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Laterne mit Wunschtext – Windlicht für innen und außen</span>
+          <span class="price">29,55 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="laterne für sänger und chor mit wunschtext, windlicht mit noten, geschenk für chorleitung"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4408701033" target="_blank" rel="noopener" title="Laterne für Sänger und Chor mit Wunschtext, Windlicht mit Noten, Geschenk für Chorleitung">
+        <img src="img/shop/4408701033.jpg" alt="Laterne für Sänger und Chor mit Wunschtext" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Laterne für Sänger und Chor mit Wunschtext</span>
+          <span class="price">29,55 €</span>
+          <span class="ship">zzgl. 4,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="blumenkranz stehend mit wunschtext, flowerhoop aus trockenblumen, geschenk für oma oder mama"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1872744611" target="_blank" rel="noopener" title="Blumenkranz stehend mit Wunschtext, Flowerhoop aus Trockenblumen, Geschenk für Oma oder Mama">
+        <img src="img/shop/1872744611.jpg" alt="Blumenkranz stehend mit Wunschtext" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Blumenkranz stehend mit Wunschtext</span>
+          <span class="price"><small>ab</small> 19,99 €</span>
+          <span class="ship">zzgl. 5,49 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="hochzeit">
+    <h2>Hochzeit &amp; Feste</h2>
+    <ul class="grid">
+      <li data-q="personalisierte platzkarten aus acryl gold/silber, sechseck platzkarten, tischkarten, namensschilder, hochzeit geburtstag jga, gastgeschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1766194076" target="_blank" rel="noopener" title="Personalisierte Platzkarten aus Acryl Gold/Silber, Sechseck Platzkarten, Tischkarten, Namensschilder, Hochzeit Geburtstag JGA, Gastgeschenk">
+        <img src="img/shop/1766194076.jpg" alt="Personalisierte Platzkarten aus Acryl Gold/Silber" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Personalisierte Platzkarten aus Acryl Gold/Silber</span>
+          <span class="price"><small>ab</small> 1,90 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="tischnummern acryl durchsichtig für hochzeit, sitzplan hexagon sechseck, hochzeit, event, geburtstag, schützenfest, transparent, gold/silber"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1780800347" target="_blank" rel="noopener" title="Tischnummern Acryl durchsichtig für Hochzeit, Sitzplan Hexagon Sechseck, Hochzeit, Event, Geburtstag, Schützenfest, transparent, Gold/Silber">
+        <img src="img/shop/1780800347.jpg" alt="Tischnummern Acryl durchsichtig für Hochzeit" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Tischnummern Acryl durchsichtig für Hochzeit</span>
+          <span class="price"><small>ab</small> 7,80 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="namensschilder und tischnummern zusammenpassend, tischzahlen für hochzeit, personalisierte platzkarten aus acryl, tischkarten sechseck"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1802219927" target="_blank" rel="noopener" title="Namensschilder und Tischnummern zusammenpassend, Tischzahlen für Hochzeit, Personalisierte Platzkarten aus Acryl, Tischkarten Sechseck">
+        <img src="img/shop/1802219927.jpg" alt="Namensschilder und Tischnummern zusammenpassend" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Namensschilder und Tischnummern zusammenpassend</span>
+          <span class="price"><small>ab</small> 26,80 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="filz-schlüsselanhänger mit beliebigen sprüchen, anhänger jga, geschenkidee team, teambuilding, geschenke, freundinnenanhänger"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4456633539" target="_blank" rel="noopener" title="Filz-Schlüsselanhänger mit beliebigen Sprüchen, Anhänger JGA, Geschenkidee Team, Teambuilding, Geschenke, Freundinnenanhänger">
+        <img src="img/shop/4456633539.jpg" alt="Filz-Schlüsselanhänger mit beliebigen Sprüchen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Filz-Schlüsselanhänger mit beliebigen Sprüchen</span>
+          <span class="price"><small>ab</small> 4,50 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="weihnachtliche platzkarten aus acryl mit namen, sechseck tischkarten gold silber für heiligabend und weihnachtsfeier"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1795463504" target="_blank" rel="noopener" title="Weihnachtliche Platzkarten aus Acryl mit Namen, Sechseck Tischkarten Gold Silber für Heiligabend und Weihnachtsfeier">
+        <img src="img/shop/1795463504.jpg" alt="Weihnachtliche Platzkarten aus Acryl mit Namen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Weihnachtliche Platzkarten aus Acryl mit Namen</span>
+          <span class="price"><small>ab</small> 2,00 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="willkommensschild hochzeit aus acryl, personalisiert mit namen und datum, hochzeitsschild für staffelei, hochzeitsdeko"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4604202072" target="_blank" rel="noopener" title="Willkommensschild Hochzeit aus Acryl, personalisiert mit Namen und Datum, Hochzeitsschild für Staffelei, Hochzeitsdeko">
+        <img src="img/shop/4604202072.jpg" alt="Willkommensschild Hochzeit aus Acryl" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Willkommensschild Hochzeit aus Acryl</span>
+          <span class="price">49,00 €</span>
+          <span class="ship">zzgl. 6,99 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="baby">
+    <h2>Baby &amp; Kinder</h2>
+    <ul class="grid">
+      <li data-q="babybody kurzarm mit personalisierung, gewicht, geburtsdatum, größe, name, babygeschenk, geburtstagsgeschenk für neue eltern, strampler"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1768077202" target="_blank" rel="noopener" title="Babybody kurzarm mit Personalisierung, Gewicht, Geburtsdatum, Größe, Name, Babygeschenk, Geburtstagsgeschenk für neue Eltern, Strampler">
+        <img src="img/shop/1768077202.jpg" alt="Babybody kurzarm mit Personalisierung" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Babybody kurzarm mit Personalisierung</span>
+          <span class="price">14,90 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="babybody kurzarm mit oma spruch, großeltern geschenk, babygeschenk, geschenk für neue eltern, strampler"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4553382949" target="_blank" rel="noopener" title="Babybody kurzarm mit Oma Spruch, Großeltern Geschenk, Babygeschenk, Geschenk für neue Eltern, Strampler">
+        <img src="img/shop/4553382949.jpg" alt="Babybody kurzarm mit Oma Spruch" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Babybody kurzarm mit Oma Spruch</span>
+          <span class="price">14,90 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="babybody kurzarm mit lustigem spruch als babygeschenk, geburtstagsgeschenk für neue eltern"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4465320526" target="_blank" rel="noopener" title="Babybody kurzarm mit lustigem Spruch als Babygeschenk, Geburtstagsgeschenk für neue Eltern">
+        <img src="img/shop/4465320526.jpg" alt="Babybody kurzarm mit lustigem Spruch als Babygeschenk" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Babybody kurzarm mit lustigem Spruch als Babygeschenk</span>
+          <span class="price">14,90 €</span>
+          <span class="ship">zzgl. 0,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="baby body personalisiert mit nachname in verschiedenen farben, geschenk geburt, geburtstag, geschenk strampler eltern, babyparty geschenk"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1789056858" target="_blank" rel="noopener" title="Baby Body personalisiert mit Nachname in verschiedenen Farben, Geschenk Geburt, Geburtstag, Geschenk Strampler Eltern, Babyparty Geschenk">
+        <img src="img/shop/1789056858.jpg" alt="Baby Body personalisiert mit Nachname in verschiedenen Farben" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Baby Body personalisiert mit Nachname in verschiedenen Farben</span>
+          <span class="price">11,90 €</span>
+          <span class="ship">zzgl. 2,75 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <section id="bastel-sets">
+    <h2>Bastel-Sets</h2>
+    <ul class="grid">
+      <li data-q="bastel-set &quot;schneemann weihnachtsbaum anhänger&quot; aus holzperlen mit faden, diy set für weihnachtsschmuck, basteln mit kindern oder erwachsene"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1775977964" target="_blank" rel="noopener" title="Bastel-Set &quot;Schneemann Weihnachtsbaum Anhänger&quot; aus Holzperlen mit Faden, DIY Set für Weihnachtsschmuck, Basteln mit Kindern oder Erwachsene">
+        <img src="img/shop/1775977964.jpg" alt="Bastel-Set &quot;Schneemann Weihnachtsbaum Anhänger&quot; aus Holzperlen mit Faden" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bastel-Set &quot;Schneemann Weihnachtsbaum Anhänger&quot; aus Holzperlen mit Faden</span>
+          <span class="price">10,90 €</span>
+          <span class="ship">zzgl. 2,90 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="bastelset pferdemädchen, basteln für mädchen und jungs an kindergeburtstagen, basteln mit kindern, bastelsets einfach, geschenk für mädchen"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1859783239" target="_blank" rel="noopener" title="Bastelset Pferdemädchen, Basteln für Mädchen und Jungs an Kindergeburtstagen, Basteln mit Kindern, Bastelsets einfach, Geschenk für Mädchen">
+        <img src="img/shop/1859783239.jpg" alt="Bastelset Pferdemädchen – Basteln für Mädchen und Jungs an Kindergeburtstagen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bastelset Pferdemädchen – Basteln für Mädchen und Jungs an Kindergeburtstagen</span>
+          <span class="price">11,99 €</span>
+          <span class="ship">zzgl. 1,99 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="bastel-set/kratzbilder zum aufhängen, diy set für weihnachtsschmuck, basteln mit kindern oder für erwachsene, basteln weihnachtszeit/advent"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/1801393694" target="_blank" rel="noopener" title="Bastel-Set/Kratzbilder zum Aufhängen, DIY Set für Weihnachtsschmuck, Basteln mit Kindern oder für Erwachsene, Basteln Weihnachtszeit/Advent">
+        <img src="img/shop/1801393694.jpg" alt="Bastel-Set/Kratzbilder zum Aufhängen" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bastel-Set/Kratzbilder zum Aufhängen</span>
+          <span class="price">8,90 €</span>
+          <span class="ship">zzgl. 1,49 € Versand</span>
+        </span>
+      </a></li>
+      <li data-q="bastelset personalisiert beste mama oder oma, weihnachtsgeschenk von kindern selbst gebastelt, fensterdeko"><a class="card" href="https://kreativeschmiedesb.etsy.com/de/listing/4393559159" target="_blank" rel="noopener" title="Bastelset personalisiert Beste Mama oder Oma, Weihnachtsgeschenk von Kindern selbst gebastelt, Fensterdeko">
+        <img src="img/shop/4393559159.jpg" alt="Bastelset personalisiert Beste Mama oder Oma" loading="lazy" width="900" height="600">
+        <span class="body">
+          <span class="name">Bastelset personalisiert Beste Mama oder Oma</span>
+          <span class="price">14,99 €</span>
+          <span class="ship">zzgl. 3,50 € Versand</span>
+        </span>
+      </a></li>
+    </ul>
+  </section>
+  <p class="none" id="none" hidden>Nichts gefunden – schau gern direkt im <a href="https://kreativeschmiedesb.etsy.com" target="_blank" rel="noopener">Etsy-Shop</a> oder schreib uns.</p>
+
+  <section class="about">
+    <h2>Über uns</h2>
+    <p>Meine Mutter und ich gestalten zusammen personalisierte Geschenke: Weingläser mit Namen, Untersetzer aus Filz,
+    Weihnachtskugeln, Platzkarten, Jutebeutel und Bastel-Sets. Jedes Stück entsteht bei uns zu Hause – und weil bei uns
+    Hund, Katze und Pferd mitwohnen, findest du auch einiges für Tierfreunde. Fragen oder Sonderwünsche?
+    Schreib uns an <a href="mailto:sabikreativ@gmail.com">sabikreativ@gmail.com</a>.</p>
+  </section>
 </main>
+
+<footer class="wrap">
+  <p>Alle Preise sind Endpreise in Euro. Gemäß § 19 UStG wird keine Umsatzsteuer berechnet. Bestellung, Bezahlung, Versand
+  und Widerruf laufen über Etsy; dort gelten unsere Shop-Richtlinien. Preise und Versandkosten: Stand 30. Oktober 2026, maßgeblich ist das Angebot auf Etsy.</p>
+  <p><a href="https://kreativeschmiedesb.etsy.com" target="_blank" rel="noopener">Etsy-Shop</a> ·
+  <a href="https://www.facebook.com/profile.php?id=61595629992963" target="_blank" rel="noopener">Facebook</a> ·
+  <a href="https://www.pinterest.de/KreativeSchmiede/" target="_blank" rel="noopener">Pinterest</a> ·
+  <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+</footer>
+
+<script>
+// Knöpfe zeigen nur eine Kategorie, „Alle“ alle; die Suche filtert über alle Kategorien (ohne „Beliebt“, sonst doppelt).
+// Ohne JavaScript sind die Knöpfe einfache Sprungmarken.
+(() => {
+  const chips = [...document.querySelectorAll('.chips a')], secs = [...document.querySelectorAll('main section:not(.about)')];
+  const q = document.getElementById('q'), none = document.getElementById('none'), bar = document.querySelector('.filter');
+  const main = document.querySelector('main');
+  function zeige(cat) {
+    chips.forEach((c) => c.setAttribute('aria-current', String(c.dataset.cat === cat)));
+    secs.forEach((s) => { s.hidden = cat !== 'alle' && s.id !== cat; s.querySelectorAll('li').forEach((li) => { li.hidden = false; }); });
+    none.hidden = true;
+  }
+  function nachOben() {
+    const y = main.getBoundingClientRect().top + scrollY - bar.offsetHeight;
+    if (scrollY > y) scrollTo({ top: y, behavior: 'smooth' });
+  }
+  chips.forEach((c) => c.addEventListener('click', (e) => {
+    e.preventDefault(); q.value = ''; zeige(c.dataset.cat); nachOben();
+    history.replaceState(null, '', c.dataset.cat === 'alle' ? location.pathname : '#' + c.dataset.cat);
+  }));
+  q.addEventListener('input', () => {
+    const t = q.value.trim().toLowerCase();
+    if (!t) return zeige('alle');
+    chips.forEach((c) => c.setAttribute('aria-current', 'false'));
+    let summe = 0;
+    secs.forEach((s) => {
+      if (s.id === 'beliebt') { s.hidden = true; return; }
+      let n = 0;
+      s.querySelectorAll('li').forEach((li) => { const ok = li.dataset.q.includes(t); li.hidden = !ok; n += ok; });
+      s.hidden = !n; summe += n;
+    });
+    none.hidden = summe > 0;
+  });
+  const start = location.hash.slice(1);
+  zeige(secs.some((s) => s.id === start) ? start : 'alle');
+})();
+</script>
 </body>
 </html>
